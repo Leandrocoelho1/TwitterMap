@@ -1,0 +1,17 @@
+haters/
+
+design/
+
+# Dependency directories
+node_modules/
+
+# dotenv environment variable files
+.env
+
+# sample data files
+corrigido.json
+example.json
+
+# Mac files
+.DS_Store
+

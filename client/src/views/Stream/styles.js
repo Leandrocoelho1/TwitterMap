@@ -29,11 +29,14 @@ export const Container = styled.div`
 
 export const IntroMessage = styled.div`
   width: 100%;
-  height: calc(100vh - 11rem);
+  height: ${(props) =>
+    props.isSmall ? 'calc(100vh - 22.9rem)' : 'calc(100vh - 11rem)'};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
 
   button {
     height: 4rem;

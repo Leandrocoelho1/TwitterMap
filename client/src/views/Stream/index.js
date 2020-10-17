@@ -1,13 +1,16 @@
 import React, { useCallback, useEffect, useReducer } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { RiFocus2Line } from 'react-icons/ri';
 
 import { fetchConnections, fetchRules } from '../../api';
 import useSafeDispatch from '../../hooks/useSafeDispatch';
+import useMediaQuery from '../../hooks/useMediaQuery';
 import { Content, Sidebar } from '../../components/Layout';
 import { Container, IntroMessage } from './styles';
 import Switch from './Switch';
 import TweetList from './TweetList';
 import MeterVertical from './MeterVertical';
+import MeterHorizontal from './MeterHorizontal';
 import Map from './Map';
 import ErrorBox from '../../components/ErrorBox';
 
@@ -54,10 +57,11 @@ function StreamContent({
   dispatch,
   showMap,
   selectedTweet,
+  isSmall,
 }) {
   if (status === 'idle') {
     return (
-      <IntroMessage>
+      <IntroMessage isSmall={Number(!!isSmall)}>
         <p>Start the stream to receive your filtered Tweets in real time.</p>
         <button type="button" onClick={connectCallback}>
           Start Streaming
@@ -67,8 +71,9 @@ function StreamContent({
   }
 
   if (status === 'rejected') {
+    const height = isSmall ? 'calc(100vh - 22.9rem)' : 'calc(100vh - 11rem)';
     return (
-      <div style={{ padding: '1.8rem', height: 'calc(100vh - 11rem)' }}>
+      <div style={{ padding: '1.8rem', height }}>
         <ErrorBox
           message="Couldn't stream data. The server responded with the following  error:"
           error={error}
@@ -77,16 +82,29 @@ function StreamContent({
     );
   }
 
-  // return <TweetList tweets={tweets} status={status} dispatch={dispatch} />;
-
-  return !showMap ? (
-    <TweetList tweets={tweets} status={status} dispatch={dispatch} />
-  ) : (
-    <Map tweets={tweets} dispatch={dispatch} selectedTweet={selectedTweet} />
+  return (
+    <AnimatePresence exitBeforeEnter>
+      {!showMap ? (
+        <TweetList
+          tweets={tweets}
+          status={status}
+          dispatch={dispatch}
+          isSmall={Number(!!isSmall)}
+        />
+      ) : (
+        <Map
+          tweets={tweets}
+          dispatch={dispatch}
+          selectedTweet={selectedTweet}
+          isSmall={Number(!!isSmall)}
+        />
+      )}
+    </AnimatePresence>
   );
 }
 
 export default function Stream() {
+  const isSmall = useMediaQuery('(max-width: 899px');
   const [state, unsafeDispatch] = useReducer(streamReducer, {
     status: 'idle',
     tweets: [],
@@ -128,7 +146,7 @@ export default function Stream() {
       return;
     }
 
-    const source = new EventSource('http://localhost:8888/stream');
+    const source = new EventSource('http://localhost:8888/fake-stream');
     source.onopen = () => {
       dispatch({ type: 'connected', eventSource: source });
     };
@@ -172,6 +190,7 @@ export default function Stream() {
               disconnectCallback={disconnectStream}
             />
           </div>
+
           <StreamContent
             connectCallback={connectStream}
             tweets={tweets}
@@ -180,12 +199,12 @@ export default function Stream() {
             dispatch={dispatch}
             showMap={showMap}
             selectedTweet={selectedTweet}
+            isSmall={isSmall}
           />
+          {isSmall ? <MeterHorizontal tweets={tweets} /> : null}
         </Container>
       </Content>
-      <Sidebar>
-        <MeterVertical tweets={tweets} />
-      </Sidebar>
+      <Sidebar>{isSmall ? null : <MeterVertical tweets={tweets} />}</Sidebar>
     </>
   );
 }

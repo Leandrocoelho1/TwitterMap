@@ -67,6 +67,26 @@ const GlobalStyles = createGlobalStyle`
       letter-spacing: 0.05rem;
     }
   }
+
+  .ps .ps__rail-x:hover,
+  .ps .ps__rail-y:hover,
+  .ps .ps__rail-x:focus,
+  .ps .ps__rail-y:focus,
+  .ps .ps__rail-x.ps--clicking,
+  .ps .ps__rail-y.ps--clicking {
+    background-color: #192734;
+    opacity: 0.6;
+  }
+
+  .ps__thumb-y {
+    background-color: #5cb0e4;
+  }
+
+  .ps__rail-y:hover > .ps__thumb-y,
+  .ps__rail-y:focus > .ps__thumb-y,
+  .ps__rail-y.ps--clicking .ps__thumb-y {
+    background-color: #1b99ec;
+  }
 `;
 
 export default GlobalStyles;

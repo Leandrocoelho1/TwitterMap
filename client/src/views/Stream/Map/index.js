@@ -10,7 +10,20 @@ import CustomMarker from './CustomMarker';
 const apiKey =
   'pk.eyJ1IjoibGVjb2VsaG8iLCJhIjoiY2tjMTBxZ2ZsMTBuZTJ5bG1lencyMWp0MyJ9.lAGIKN0HAdt0dGj0r4tG6w';
 
-export default function Map({ dispatch, selectedTweet, tweets }) {
+const animationVariance = {
+  in: {
+    opacity: 1,
+  },
+  out: {
+    opacity: 0,
+  },
+};
+
+const animationTransition = {
+  duration: 0.4,
+};
+
+export default function Map({ dispatch, selectedTweet, tweets, isSmall }) {
   const mapContainerRef = useRef(null);
   const [map, setMap] = useState(null);
 
@@ -26,8 +39,8 @@ export default function Map({ dispatch, selectedTweet, tweets }) {
         const placeholder = document.createElement('div');
         const lat = tweet.place[1];
         const lon = tweet.place[0];
-        const { tone } = tweet;
-        ReactDOM.render(<CustomMarker tone={tone} />, placeholder);
+        const { sentiment } = tweet;
+        ReactDOM.render(<CustomMarker sentiment={sentiment} />, placeholder);
         const marker = new mapboxgl.Marker({ element: placeholder })
           .setLngLat([lat, lon])
           .setPopup(
@@ -85,7 +98,14 @@ export default function Map({ dispatch, selectedTweet, tweets }) {
   }, [map, selectedTweet.place]);
 
   return (
-    <MapContainer>
+    <MapContainer
+      isSmall={Number(!!isSmall)}
+      initial="out"
+      animate="in"
+      exit="out"
+      variants={animationVariance}
+      transition={animationTransition}
+    >
       <div className="map" ref={mapContainerRef} />
       <button type="button" onClick={closeMap}>
         <RiCloseFill size={22} />

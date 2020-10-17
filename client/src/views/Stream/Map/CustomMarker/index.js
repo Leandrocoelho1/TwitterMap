@@ -17,13 +17,7 @@ const MarkerWrapper = styled.div`
   }
 `;
 
-export default function CustomMarker({ tone }) {
-  function getFaceType() {
-    if (tone === 1) return 'negative';
-    if (tone === 0) return 'positive';
-    return 'neutral';
-  }
-
+export default function CustomMarker({ sentiment }) {
   return (
     <div>
       <MarkerWrapper>
@@ -37,7 +31,7 @@ export default function CustomMarker({ tone }) {
             d="M18 43.7L5.3 31c-7-7-7-18.4 0-25.5s18.4-7 25.5 0c7 7 7 18.4 0 25.5L18 43.7z"
           />
         </svg>
-        <Face type={getFaceType()} />
+        <Face type={sentiment} />
       </MarkerWrapper>
     </div>
   );

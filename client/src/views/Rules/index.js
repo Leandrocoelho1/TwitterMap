@@ -117,7 +117,7 @@ export default function Rules() {
           </div>
         </Container>
       </Content>
-      <Sidebar>nothing</Sidebar>
+      <Sidebar />
     </>
   );
 }

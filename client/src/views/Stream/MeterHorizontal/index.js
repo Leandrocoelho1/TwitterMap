@@ -1,10 +1,10 @@
 import React from 'react';
 
-import BulbTop from './BulbTop';
-import BulbBottom from './BulbBottom';
 import { MeterContainer, Meter } from './styles';
+import BulbLeft from './BulbLeft';
+import BulbRight from './BulbRight';
 
-export default function MeterVertical({ tweets }) {
+export default function MeterHorizontal({ tweets }) {
   function getSentimentAverage() {
     if (tweets.length) {
       const sentiments = tweets.map((tweet) => {
@@ -24,14 +24,13 @@ export default function MeterVertical({ tweets }) {
 
   return (
     <MeterContainer
-      initial={{ opacity: 0, x: '2rem' }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ suration: 0.6 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ suration: 0.4 }}
     >
       <div className="content">
-        <h2>Sentiment Meter</h2>
         <Meter sentiment={getSentimentAverage()}>
-          <BulbTop />
+          <BulbLeft />
           <div className="body">
             <div className="markers">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
@@ -39,14 +38,14 @@ export default function MeterVertical({ tweets }) {
               ))}
             </div>
             <div className="reflection" />
-            <div className="positive-content">
-              <div className="positive-bar" />
-            </div>
             <div className="negative-content">
               <div className="negative-bar" />
             </div>
+            <div className="positive-content">
+              <div className="positive-bar" />
+            </div>
           </div>
-          <BulbBottom />
+          <BulbRight />
         </Meter>
       </div>
     </MeterContainer>

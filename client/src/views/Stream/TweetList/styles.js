@@ -1,14 +1,23 @@
 import styled, { css } from 'styled-components';
+import { motion } from 'framer-motion';
 
-export const ListStyles = styled.div`
+export const ListStyles = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 11rem);
+  height: ${(props) =>
+    props.isSmall ? 'calc(100vh - 22.9rem)' : 'calc(100vh - 11rem)'};
+  overflow-y: hidden;
 `;
 
 export const TweetStyles = styled.div`
   padding: 4rem;
   border-bottom: 0.1rem solid var(--border-color);
+  background: transparent;
+  transition: all 0.2s ease-out;
+
+  &:hover {
+    background: var(--bg-medium);
+  }
 
   &:last-child {
     border-bottom: none;

@@ -2,25 +2,17 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 export const MeterContainer = styled(motion.div)`
-  flex: 1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  height: calc(100vh);
-  position: sticky;
-  top: 0;
   padding: 1.5rem;
+  border-top: 0.1rem solid var(--border-color);
 
   .content {
     background: var(--bg-medium);
     display: flex;
-    flex-direction: column;
     align-items: center;
-    padding: 4rem;
-    width: 100%;
-    max-width: 28rem;
-    height: 100%;
+    justify-content: center;
+    height: 8.8rem;
+    padding: 1.4rem 1.8rem;
     border-radius: 1.2rem;
 
     h2 {
@@ -35,74 +27,71 @@ export const MeterContainer = styled(motion.div)`
 
 export const Meter = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   flex: 1;
 
   svg {
-    width: 8.6rem;
-    height: 9.2rem;
+    width: 6.3rem;
+    height: 6rem;
   }
 
   .body {
     flex: 1;
-    width: 5.8rem;
-    border-left: 0.4rem solid #fff;
-    border-right: 0.4rem solid #fff;
-    padding: 0 0.8rem;
+    height: 4.6rem;
+    border-top: 0.4rem solid #fff;
+    border-bottom: 0.4rem solid #fff;
+    padding: 0.6rem 0;
     display: flex;
-    flex-direction: column;
     position: relative;
 
     .markers {
-      width: 2.5rem;
-      height: 100%;
+      height: 1.8rem;
+      width: 100%;
       position: absolute;
-      top: 0;
+      bottom: 0;
       left: 0;
       display: flex;
-      flex-direction: column;
       justify-content: space-between;
+      align-items: flex-end;
       z-index: 1;
 
       .mark {
-        width: 65%;
-        height: 0.4rem;
+        height: 65%;
+        width: 0.4rem;
         background: var(--white);
 
         &:nth-child(1),
         &:nth-child(5),
         &:nth-child(9) {
-          width: 100%;
+          height: 100%;
         }
       }
     }
 
     .reflection {
-      width: 0.8rem;
-      height: 88%;
+      width: 70%;
+      height: 0.6rem;
       position: absolute;
-      top: -0.6rem;
-      right: 0.6rem;
+      top: 0.4rem;
+      right: 0rem;
       display: flex;
-      flex-direction: column;
       z-index: 1;
 
       &::before {
         content: '';
-        width: 100%;
+        hieght: 100%;
         background: rgba(255, 255, 255, 0.4);
         border-radius: 0.4rem;
-        height: 90%;
-        margin-bottom: 1.2rem;
+        margin-right: 1.2rem;
+        flex: 1;
       }
 
       &::after {
         content: '';
-        width: 100%;
+        width: 90%;
         background: rgba(255, 255, 255, 0.4);
         border-radius: 0.4rem;
-        flex: 1;
+        height: 100%;
       }
     }
 
@@ -113,22 +102,20 @@ export const Meter = styled.div`
       position: relative;
 
       .positive-bar {
-        width: 100%;
-        height: ${(props) => (props.sentiment > 0 ? `${props.sentiment}%` : 0)};
+        height: 100%;
+        width: ${(props) => (props.sentiment > 0 ? `${props.sentiment}%` : 0)};
         border-radius: 0.8rem;
         position: absolute;
         background-image: linear-gradient(#17bf63, #18a570);
-        bottom: 0;
       }
 
       .negative-bar {
-        width: 100%;
-        height: ${(props) =>
+        height: 100%;
+        width: ${(props) =>
           props.sentiment < 0 ? `${Math.abs(props.sentiment)}%` : 0};
         border-radius: 0.8rem;
         position: absolute;
         background-image: linear-gradient(#ff44a8, #e63068);
-        top: 0;
         transform: rotate(180deg);
       }
     }

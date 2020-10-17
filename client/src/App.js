@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import 'normalize.css';
 
 import GlobalStyles from './styles/GlobalStyles';
@@ -14,10 +15,12 @@ function App() {
       <GlobalStyles />
       <Layout>
         <Header />
-        <Switch>
-          <Route path="/" exact component={Stream} />
-          <Route path="/rules" exact component={Rules} />
-        </Switch>
+        <AnimatePresence exitBeforeEnter>
+          <Switch>
+            <Route path="/" exact component={Stream} />
+            <Route path="/rules" exact component={Rules} />
+          </Switch>
+        </AnimatePresence>
       </Layout>
     </BrowserRouter>
   );

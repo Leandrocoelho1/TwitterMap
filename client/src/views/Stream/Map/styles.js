@@ -1,8 +1,10 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const MapContainer = styled.div`
+export const MapContainer = styled(motion.div)`
   width: 100%;
-  height: calc(100vh - 11rem);
+  height: ${(props) =>
+    props.isSmall ? 'calc(100vh - 22.9rem)' : 'calc(100vh - 11rem)'};
   padding: 1.5rem;
   position: relative;
 

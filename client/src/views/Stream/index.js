@@ -130,14 +130,14 @@ export default function Stream() {
         });
         return;
       }
-      // const rules = await fetchRules();
-      // if (!rules.data.length) {
-      //   dispatch({
-      //     type: 'rejected',
-      //     error: 'You need at leat one rule to start streaming',
-      //   });
-      //   return;
-      // }
+      const rules = await fetchRules();
+      if (!rules.data.length) {
+        dispatch({
+          type: 'rejected',
+          error: 'You need at leat one rule to start streaming',
+        });
+        return;
+      }
     } catch (err) {
       dispatch({
         type: 'rejected',
@@ -146,7 +146,7 @@ export default function Stream() {
       return;
     }
 
-    const source = new EventSource('http://localhost:8888/fake-stream');
+    const source = new EventSource('http://localhost:8888/stream');
     source.onopen = () => {
       dispatch({ type: 'connected', eventSource: source });
     };

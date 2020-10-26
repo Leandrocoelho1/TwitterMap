@@ -7,8 +7,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { MapContainer } from './styles';
 import CustomMarker from './CustomMarker';
 
-const apiKey =
-  'pk.eyJ1IjoibGVjb2VsaG8iLCJhIjoiY2tjMTBxZ2ZsMTBuZTJ5bG1lencyMWp0MyJ9.lAGIKN0HAdt0dGj0r4tG6w';
+const apiKey = process.env.REACT_APP_MAPBOX_TOKEN;
 
 const animationVariance = {
   in: {

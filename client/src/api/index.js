@@ -9,7 +9,7 @@ export function fetchRules() {
 }
 
 export function fetchConnections() {
-  return api.get('/fake-stream/connections');
+  return api.get('/stream/connections');
 }
 
 export function createRule(ruleValue) {
